@@ -29,7 +29,74 @@
             <version>1.1.4</version>
             <scope>test</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.webdriverextensions/webdriverextensions -->
+        <dependency>
+            <groupId>com.github.webdriverextensions</groupId>
+            <artifactId>webdriverextensions</artifactId>
+            <version>3.11.2</version>
+        </dependency>
+
+        <!-- TO ENABLE USAGE OF AUTOMATED INSTALLATION OF ALL DRIVERS -->
+        <!-- https://mvnrepository.com/artifact/com.github.webdriverextensions/webdriverextensions-maven-plugin -->
+        <dependency>
+            <groupId>com.github.webdriverextensions</groupId>
+            <artifactId>webdriverextensions-maven-plugin</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
+
 
     </dependencies>
+
+
+<!--    <profiles>-->
+<!--    <profile>-->
+<!--    <id>release</id>-->
+
+    <build>
+    <plugins>
+    <plugin>
+        <groupId>com.github.webdriverextensions</groupId>
+        <artifactId>webdriverextensions-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>install-drivers</goal>
+                </goals>
+            </execution>
+        </executions>
+        <configuration>
+            <drivers>
+                <driver>
+                    <name>edgedriver</name>
+                    <version>6.17134</version>
+                </driver>
+                <driver>
+                    <name>internetexplorerdriver</name>
+                    <version>3.9.0</version>
+                </driver>
+                <driver>
+                    <name>chromedriver</name>
+                    <version>74.0.3729.6</version>
+                </driver>
+                <driver>
+                    <name>geckodriver</name>
+                    <version>0.24.0</version>
+                </driver>
+                <driver>
+                    <name>phantomjs</name>
+                    <version>2.1.1</version>
+                </driver>
+            </drivers>
+        </configuration>
+    </plugin>
+    </plugins>
+    </build>
+
+<!--    </profile>-->
+<!--    </profiles>-->
+
+
 
 </project>
