@@ -7,13 +7,17 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
+import static com.github.webdriverextensions.Bot.waitForElementToDisplay;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class SearchResultPage extends WebPage {
 
     @FindBy(className = "srp-controls__count-heading")
-    public WebElement searchedItemResult;
+    private WebElement searchedItemResult;
+
+    @FindBy(xpath = "//*[@id=\"srp-river-results-listing1\"]/div/div[2]/a/h3")
+    private WebElement firstItemFound;
 
     @Override
     public void open(Object... arguments) {
@@ -31,13 +35,18 @@ public class SearchResultPage extends WebPage {
     }
 
     public void itemNotFound(){
-        assertTrue(getNumberOfFoundItems() == 0);
+        assertEquals(0,getNumberOfFoundItems());
+    }
+
+    // selects the 1st item of the search (as we don't have control of data, it is rather non-deterministic)
+    public void selectAnyItem(){
+        waitForElementToDisplay(firstItemFound);
+        firstItemFound.click();
     }
 
     // utility methods
     private int getNumberOfFoundItems() {
         List<WebElement> pageIds = searchedItemResult.findElements(By.tagName("span"));
-        int countOfFoundItems = Integer.parseInt(pageIds.get(0).getText().replace(",",""));
-        return countOfFoundItems;
+        return Integer.parseInt(pageIds.get(0).getText().replace(",",""));
     }
 }

@@ -12,20 +12,21 @@ import static com.github.webdriverextensions.Bot.*;
 public class LandingPage extends WebPage {
 
     @FindBy(id = "gh-logo")
-    public WebElement companyLogo;
+    private WebElement companyLogo;
 
     @FindBy(id = "gh-ac")
-    public WebElement itemSearchField;
+    private WebElement itemSearchField;
 
     @FindBy(id = "gh-btn")
-    public WebElement searchButton;
+    private WebElement searchButton;
 
     @FindBy(xpath = "//*[@id=\"mainContent\"]/div[1]/ul")
-    public WebElement staticCategorySubmenu;
+    private WebElement staticCategorySubmenu;
 
     // TODO: remove
     @FindBy(xpath = "//*[@id=\"mainContent\"]/div[1]/ul/li[4]/a")
-    public WebElement fashionCategory;
+    private WebElement fashionCategory;
+
 
     @Override
     public void open(Object... arguments) {
@@ -41,6 +42,7 @@ public class LandingPage extends WebPage {
         type(item, itemSearchField);
         click(searchButton);
     }
+
 
     // TODO: method needs to be generalized - to use exact category and not the only one available
     public void selectSubmenuCategory(String category) {
