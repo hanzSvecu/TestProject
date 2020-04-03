@@ -51,7 +51,7 @@ public class GeneralHeader extends WebPage {
     }
 
     public int getNumberOfItemsInCart() {
-        driver.navigate().refresh();
+//        driver.navigate().refresh();
         waitForElementToDisplay(cartContains);
         if (!cartContains.isDisplayed()) return 0;
         else return Integer.parseInt(cartContains.getText());

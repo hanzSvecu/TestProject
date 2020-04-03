@@ -15,12 +15,22 @@ public class ShoppingCart extends WebPage {
     private WebDriver driver = WebDriverExtensionsContext.getDriver();
 
     private GeneralHeader generalHeader;
+    private CheckoutPage checkoutPage;
 
     @FindBy(xpath = "//*[@id=\"mainContent\"]/div/div[1]/h1")
     private WebElement title;
 
     @FindBy(id = "s1-11-sunnyup01-133135371-254121557014-qty[]-1-dropdown")
     private WebElement quantityDropdown;
+
+    @FindBy(xpath = "//*[@id=\"mainContent\"]/div/div[3]/div/div/div/div[2]/div/div/div/div/div[2]/span[2]/button")
+    private WebElement removeItemButton;
+
+    @FindBy(xpath = "//*[@id=\"mainContent\"]/div/div[4]/div/div[1]/button")
+    private WebElement checkoutButton;
+
+    @FindBy(id = "gxo-btn")
+    private WebElement checkoutContinueAsGuestButton;
 
     @Override
     public void open(Object... arguments) {
@@ -45,4 +55,20 @@ public class ShoppingCart extends WebPage {
         waitForElementToDisplay(title);
         assertTrue(title.getText().contains(currentQuantity+" item"));
     }
+
+    public void removeItem(){
+        waitForElementToDisplay(removeItemButton);
+        removeItemButton.click();
+        generalHeader.validateCartIsEmpty();
+//        generalHeader.validateCartContainsItems(0);
+    }
+
+    public void checkout() {
+        waitForElementToDisplay(checkoutButton);
+        checkoutButton.click();
+        waitForElementToDisplay(checkoutContinueAsGuestButton);
+        checkoutContinueAsGuestButton.click();
+        checkoutPage.assertIsOpen();
+    }
+
 }
